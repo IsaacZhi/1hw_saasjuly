@@ -18,7 +18,7 @@ def count_words(string)
   string.downcase.gsub(/\w+/) do |word|
     if  hash_map.key?(word) then
       hash_map[word] += 1
-    elsif
+    else
       hash_map[word] = 1
     end
   end

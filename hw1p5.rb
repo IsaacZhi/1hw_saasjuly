@@ -64,7 +64,7 @@ end
 
 module Enumerable
   def palindrome?
-    self == self.reverse_each.collect {|v| v}
+    self.to_a == self.to_a.reverse
   end
 end
 

@@ -29,17 +29,29 @@ f.bar = 4
 p f.bar_history
 =end
 
-class Numberic
-  @@currencies = {'yen' => 0.013, 'euro' => 1.292, 'rupee' => 0.019}
-  def method_missing(method_id)
+class Numeric
+  @@currencies = {'yen' => 0.013, 'euro' => 1.292, 'rupee' => 0.019, 'dollar' => 1.0}
+  def method_missing(method_id, *args)
     singular_currency = method_id.to_s.gsub( /s$/, '')
     if @@currencies.has_key?(singular_currency)
       self * @@currencies[singular_currency]
+    elsif method_id.to_s == 'in'
+      to_currency = args[0].to_s.gsub( /s$/, '')
+      if @@currencies.has_key?(to_currency)
+        self / @@currencies[to_currency]
+      end
     else
       super
     end
   end
 end
+
+=begin
+p 5.dollars.in(:euros)
+p 10.euros.in(:rupees)
+p 5.dollars
+p 10.euros
+=end
 
 class String
   def palindrome?

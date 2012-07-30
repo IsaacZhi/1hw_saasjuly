@@ -41,3 +41,21 @@ class Numberic
   end
 end
 
+class String
+  def palindrome?
+    self.downcase.gsub(/\W/,"") == self.downcase.gsub(/\W/,"").reverse
+  end
+end
+
+#p "foo".palindrome?
+
+
+module Enumerable
+  def palindrome?
+    self == self.reverse_each.collect {|v| v}
+  end
+end
+
+
+#p [1,2,3,2,1].palindrome?
+#p [2, 3, 4,5,6].palindrome?
